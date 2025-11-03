@@ -367,7 +367,7 @@ def main():
     help="Cap number of GPUs when auto-detecting. "
          "Use 0 or negative to use ALL detected (default)."
 )
-)
+
     ap.add_argument("--dry-run", action="store_true", help="Plan only; do not launch workers")
     args = ap.parse_args()
 
@@ -394,11 +394,10 @@ def main():
             cap = None if args.max_gpus <= 0 else args.max_gpus
             gpu_ids = detect_gpu_ids(limit=cap)
 
-if not gpu_ids:
-    raise SystemExit("❌ No GPUs available/detected. Supply --gpu-ids if needed.")
+        if not gpu_ids:
+            raise SystemExit("❌ No GPUs available/detected. Supply --gpu-ids if needed.")
 
-print("🎯 GPUs:", gpu_ids, flush=True)
-
+        print("🎯 GPUs:", gpu_ids, flush=True)
 
     # 2) Pending ligands
     pending = list_pending_ligands()
